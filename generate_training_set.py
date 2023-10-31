@@ -33,10 +33,19 @@ def get_dataset(num_samples=None):
                 board.push(move)
                 info = engine.analyse(board, limit=chess.engine.Limit(depth=depth_limit))
                 ser = State(board).serialize()
-                X.append(ser)
-                Y.append(info["score"].relative.score() / 100)
-                
-                print(Y[-1]) #! need to update with eval after move
+                val = 0
+                if info and info["score"] is not None:
+                    if info["score"].is_mate() and info["score"].white:
+                        val = 1000
+                    elif info["score"].is_mate() and info["score"].black:
+                        val = -1000
+                    else:
+                        val = info["score"].relative.score() / 100
+                    
+                    X.append(ser)
+                    Y.append(val)
+                else:
+                    continue
             
             print("parsing game %d, got %d examples" % (gn, len(X)), end='\r')
             if num_samples is not None and len(X) > num_samples:
