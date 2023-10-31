@@ -1,0 +1,4 @@
+chess==1.10.0
+numpy==1.26.1
+pgn-parser==1.1.0
+python-chess==1.999
