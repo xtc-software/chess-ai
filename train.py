@@ -67,7 +67,7 @@ class Net(nn.Module):
     return F.tanh(x)
 
 if __name__ == "__main__":
-  device = "cpu"
+  device = "cuda"
 
   chess_dataset = ChessValueDataset()
   train_loader = torch.utils.data.DataLoader(chess_dataset, batch_size=256, shuffle=True)
